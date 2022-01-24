@@ -1,6 +1,5 @@
-import spotipy
+import spotify-sus
 import time
-from spotipy.oauth2 import SpotifyOAuth
 from instagram_private_api import Client
 from common import (
     Client, ClientError, ClientLoginError, ClientCookieExpiredError,
@@ -18,18 +17,9 @@ CLIENT_ID = creds.spotify_client_id
 CLIENT_SECRET = creds.spotify_client_secret
 SCOPE = creds.spotify_scope
 
-def create_spotify():
-    AUTH_MANAGER = SpotifyOAuth(
-        scope=SCOPE,
-        username=USERNAME,
-        redirect_uri='http://example.com',
-        client_id=CLIENT_ID,
-        client_secret=CLIENT_SECRET,
-        show_dialog=False)
 
-    spotify = spotipy.Spotify(auth_manager=AUTH_MANAGER)
 
-    return AUTH_MANAGER, spotify
+    
 
 def login_instagram():
     # Example command:
