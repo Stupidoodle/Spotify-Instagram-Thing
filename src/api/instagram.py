@@ -2,6 +2,7 @@
 
 import logging
 from dataclasses import dataclass
+from logging.handlers import RotatingFileHandler
 from typing import Optional
 
 from instagrapi import Client  # type: ignore
@@ -9,6 +10,14 @@ from instagrapi.exceptions import LoginRequired  # type: ignore
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+handler = RotatingFileHandler(
+    "mylog.log", maxBytes=10 * 1024 * 1024, backupCount=5
+)  # 10 MB files, 5 backups
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
 
 
 @dataclass

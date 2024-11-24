@@ -3,12 +3,21 @@
 import logging
 import os
 import time
+from logging.handlers import RotatingFileHandler
 
 from src.api.instagram import Instagram
 from src.api.spotify import Spotify
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+handler = RotatingFileHandler(
+    "mylog.log", maxBytes=10 * 1024 * 1024, backupCount=5
+)  # 10 MB files, 5 backups
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
 
 
 RATE_LIMIT_PER_30_SEC = 80
