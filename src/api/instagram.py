@@ -29,8 +29,15 @@ class Instagram:
 
     def login(self, username: str, password: str) -> None:
         """Authenticate with Instagram."""
-        # noinspection PyTypeChecker
-        session = self.client.load_settings("session.json")
+        try:
+            # noinspection PyTypeChecker
+            session = self.client.load_settings("session.json")
+        except FileNotFoundError as e:
+            logger.info(f"Couldn't load session information: {e}")
+            session = None
+        except Exception as e:
+            logger.info(f"Couldn't load session information: {e}")
+            session = None
 
         login_via_session = False
         login_via_credentials = False
