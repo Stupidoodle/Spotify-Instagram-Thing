@@ -65,6 +65,8 @@ class Instagram:
             try:
                 logger.info("Attempting to login via credentials")
                 if self.client.login(username=username, password=password):
+                    # noinspection PyTypeChecker
+                    self.client.dump_settings("session.json")
                     login_via_credentials = True
             except Exception as e:
                 logger.info(f"Couldn't login user using credentials: {e}")
