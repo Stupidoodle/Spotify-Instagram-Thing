@@ -17,16 +17,25 @@ WAIT_TIME = 30
 
 request_count = 0
 
+last_biography = None
+
 
 def main(spotify: Spotify, instagram: Instagram) -> None:
     """Handle things."""
+    global last_biography
     current_song = spotify.get_current_song()
     if current_song:
         logger.info(f"Currently listening to: {current_song}")
-        instagram.set_current_biography(f"Currently listening to: {current_song}")
+        new_biography = f"Currently listening to: {current_song}"
     else:
         logger.info("No song is currently playing")
-        instagram.set_current_biography("Currently listening to nothing")
+        new_biography = "Currently listening to nothing"
+
+    if new_biography != last_biography:
+        instagram.set_current_biography(new_biography)
+        last_biography = new_biography
+    else:
+        logger.info("No change in biography")
 
 
 if __name__ == "__main__":
