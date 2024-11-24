@@ -131,13 +131,14 @@ class Spotify:
         if not self.spotify:
             raise Exception("Spotify not initialized")
 
-        if self.spotify.currently_playing():
-            if not self.spotify.currently_playing()["is_playing"]:
+        currently_playing = self.spotify.currently_playing()
+        if currently_playing:
+            if not currently_playing["is_playing"]:
                 return ""
             return (
-                f"{self.spotify.currently_playing()['item']['name']}"
+                f"{currently_playing['item']['name']}"
                 f" by "
-                f"{self.spotify.currently_playing()['item']['artists'][0]['name']}"
+                f"{currently_playing['item']['artists'][0]['name']}"
             )
         else:
             return ""
