@@ -2,7 +2,6 @@
 
 import logging
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Optional
 
 from instagrapi import Client  # type: ignore
@@ -26,11 +25,12 @@ class Instagram:
 
     def __post_init__(self) -> None:
         """Initialize the Instagram client."""
-        self.client.delay_range = [1, 3]
+        self.client.delay_range = [10, 30]
 
     def login(self, username: str, password: str) -> None:
         """Authenticate with Instagram."""
-        session = self.client.load_settings(Path("session.json"))
+        # noinspection PyTypeChecker
+        session = self.client.load_settings("session.json")
 
         login_via_session = False
         login_via_credentials = False
