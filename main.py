@@ -41,6 +41,13 @@ def main(spotify: Spotify, instagram: Instagram) -> None:
         new_biography = "Currently listening to nothing"
 
     if new_biography != last_biography:
+        time.sleep(17)
+        if current_song:
+            logger.info(f"Currently listening to: {current_song}")
+            new_biography = f"Currently listening to: {current_song}"
+        else:
+            logger.info("No song is currently playing")
+            new_biography = "Currently listening to nothing"
         instagram.set_current_biography(new_biography)
         last_biography = new_biography
     else:
