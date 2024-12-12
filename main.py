@@ -48,8 +48,13 @@ def main(spotify: Spotify, instagram: Instagram) -> None:
         else:
             logger.info("No song is currently playing")
             new_biography = "Currently listening to nothing"
-        instagram.set_current_biography(new_biography)
-        last_biography = new_biography
+        try:
+            instagram.set_current_biography(new_biography)
+            last_biography = new_biography
+        except Exception as e:
+            logger.error(f"Couldn't update biography: {e}")
+            logger.info("Sleeping for 24 hours")
+            time.sleep(86400)
     else:
         logger.info("No change in biography")
 
