@@ -94,13 +94,15 @@ class Instagram:
             logger.info(f"Couldn't fetch biography: {e}")
             return None
 
-    def set_current_biography(self, biography: str) -> None:
+    def set_current_biography(self, biography: str) -> Optional[bool]:
         """Set the current biography of the logged-in user."""
         if not biography:
             raise Exception("Biography cannot be empty")
         if self.get_current_biography() == biography:
             return
         if self.client.account_set_biography(biography):
+            return True
             logger.info("Biography updated successfully")
         else:
             logger.info("Couldn't update biography")
+            return False
